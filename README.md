@@ -36,8 +36,15 @@ Codex w `plugins/humanizer-pl/`. W Codex wybierz dodawanie marketplace, podaj:
 https://github.com/mateuszkozlowski/codex-humanizer-pl
 ```
 
-Następnie zainstaluj plugin **Humanizer PL** z dodanego marketplace. Jeśli chcesz użyć
-standalone skilla bez marketplace, nadal działa instalacja przez `git clone` opisana wyżej.
+Plugin **Humanizer PL** jest oznaczony jako instalowany domyślnie po dodaniu marketplace.
+Jeśli używasz starszego cache albo nie zainstalował się automatycznie, wykonaj:
+
+```bash
+codex plugin add humanizer-pl@codex-humanizer-pl
+```
+
+Jeśli chcesz użyć standalone skilla bez marketplace, nadal działa instalacja przez `git clone`
+opisana wyżej.
 
 ## Co robi
 

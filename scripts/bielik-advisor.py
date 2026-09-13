@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 """Bielik w trybie DORADCY (drugi rzut oka) dla humanizer-pl.
 
-Bierze tekst po przebiegu polszczyzny (recenzent Opus) i KAZE Bielikowi podsunac
-konkretne propozycje, gdzie polski mogłby brzmiec naturalniej. Bielik tylko proponuje.
-Opus (glowny model) potem osadza kazda propozycje: przyjmuje, odrzuca albo wyluskuje
+Bierze tekst po przebiegu polszczyzny (recenzja głównego modelu) i KAŻE Bielikowi podsunąć
+konkretne propozycje, gdzie polski mógłby brzmieć naturalniej. Bielik tylko proponuje.
+Główny model potem osadza każdą propozycję: przyjmuje, odrzuca albo wyłuskuje
 ziarno - i to on robi finalne poprawki, trzymajac fakty. Bielik 11B bywa, ze zmienia
 sens (np. "kuracja" -> "lekarstwo"), wiec NIGDY nie aplikujemy jego zmian wprost.
 
@@ -84,7 +84,7 @@ def check():
         return emit(
             {
                 "ok": False,
-                "tryb": "z Bielikiem niedostepny -> uruchom tools/install-bielik.sh albo uzyj trybu bez Bielika",
+                "tryb": "z Bielikiem niedostępny -> uruchom scripts/install-bielik.sh albo użyj trybu bez Bielika",
                 "powod": "Ollama nie odpowiada na " + HOST,
                 "blad": str(e),
             },
@@ -98,7 +98,7 @@ def check():
             "ok": have,
             "model": MODEL,
             "dostepne_modele": names,
-            "powod": "" if have else "Brak modelu. Uruchom tools/install-bielik.sh (zrobi pull za usera).",
+            "powod": "" if have else "Brak modelu. Uruchom scripts/install-bielik.sh (po potwierdzeniu instalacji).",
         },
         0 if have else 3,
     )
@@ -125,7 +125,7 @@ def main():
             {
                 "ok": False,
                 "tryb": "fallback -> bez Bielika",
-                "powod": "Nie moge polaczyc z Ollama (" + HOST + "). Uruchom tools/install-bielik.sh.",
+                "powod": "Nie mogę połączyć z Ollama (" + HOST + "). Uruchom scripts/install-bielik.sh.",
                 "blad": str(e),
             },
             2,
@@ -137,7 +137,7 @@ def main():
         parsed = json.loads(raw)
         props = parsed.get("propozycje", parsed if isinstance(parsed, list) else [])
         return emit({"model": MODEL, "tryb": "doradca", "propozycje": props,
-                     "uwaga": "Bielik tylko proponuje. Opus osadza kazda propozycje i robi final, trzymajac fakty."}, 0)
+                     "uwaga": "Bielik tylko proponuje. Główny model osadza każdą propozycję i robi final, trzymając fakty."}, 0)
     except Exception:
         print(raw)
         return 0

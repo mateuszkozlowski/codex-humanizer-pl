@@ -54,7 +54,7 @@ else
 fi
 
 if "$OLLAMA_BIN" list 2>/dev/null | grep -q "$BASE"; then
-  say "GOTOWE. Tryb z Bielikiem dziala. Sprawdz: python3 tools/bielik-advisor.py --check"
+  say "GOTOWE. Tryb z Bielikiem działa. Sprawdź: python3 scripts/bielik-advisor.py --check"
   exit 0
 else
   echo "BLAD: model sie nie pobral."; exit 3

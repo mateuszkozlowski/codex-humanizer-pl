@@ -1,9 +1,5 @@
-# prywatna nakladka glosu - nie do publicznego repo
-references/voice-igor.md
-# osobiste profile zargonu per user - lokalne, nie do repo
 references/*.local.md
-# python
+references/voice-*.md
 __pycache__/
 *.pyc
-# os
 .DS_Store

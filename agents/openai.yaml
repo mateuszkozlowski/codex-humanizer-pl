@@ -1,0 +1,4 @@
+interface:
+  display_name: "Humanizer PL"
+  short_description: "Humanizuje polskie i angielskie teksty"
+  default_prompt: "Użyj $humanizer-pl, aby usunąć AI-slop z tego tekstu bez zmiany sensu, faktów i głosu autora."

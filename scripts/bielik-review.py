@@ -4,7 +4,7 @@
 
 Czyta polski tekst (juz zhumanizowany / de-slopped), pyta Bielika o NATURALNOSC
 polszczyzny i zwraca flagi w JSON. NIE przepisuje calego tekstu - tylko ocenia i
-wskazuje kalki / nienaturalnosci. Glowny model (Opus) nastepnie naprawia oflagowane
+wskazuje kalki / nienaturalności. Główny model następnie naprawia oflagowane
 miejsca, trzymajac fakty. To jest "native polskie ucho" jako drugi recenzent.
 
 Uzycie:

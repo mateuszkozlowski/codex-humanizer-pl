@@ -1,0 +1,5 @@
+references/*.local.md
+references/voice-*.md
+__pycache__/
+*.pyc
+.DS_Store

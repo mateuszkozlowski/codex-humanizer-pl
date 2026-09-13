@@ -1,0 +1,32 @@
+{
+  "version": "1.0.0",
+  "description": "Synthetic regression cases for the additional humanizer QA gates.",
+  "cases": [
+    {
+      "name": "pl_facts_and_url",
+      "lang": "pl",
+      "preserve": ["raport kwartalny"],
+      "input": "W dzisiejszych czasach warto zauważyć, że raport kwartalny ma 3 sekcje i prowadzi do https://example.com/raport. To nie długość dokumentu, to jasne wnioski pomagają zespołowi.",
+      "output": "Raport kwartalny ma 3 sekcje i prowadzi do https://example.com/raport. Zespół potrzebuje jasnych wniosków, nie dłuższego dokumentu."
+    },
+    {
+      "name": "en_quote_and_numbers",
+      "lang": "en",
+      "preserve": ["customer notes"],
+      "input": "In today's rapidly evolving landscape, the team reviewed 12 customer notes and produced a comprehensive summary. Great question: should we publish it?",
+      "output": "The team reviewed 12 customer notes and wrote a short summary. Decide whether to publish it."
+    },
+    {
+      "name": "pl_no_chatbot_artifact",
+      "lang": "pl",
+      "input": "Mam nadzieję, że to pomoże. Warto zauważyć, że plan ma 2 kroki. Świetne pytanie!",
+      "output": "Plan ma 2 kroki. Najpierw wybierz zadanie, potem sprawdź wynik."
+    },
+    {
+      "name": "en_no_placeholder",
+      "lang": "en",
+      "input": "The draft needs a clear owner and a final review before Friday.",
+      "output": "Assign an owner and review the draft before Friday."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "humanizer-pl",
+  "version": "1.0.0",
+  "description": "Humanizuje polskie i angielskie teksty, usuwając sygnały pisania AI bez zmiany sensu, faktów i głosu autora.",
+  "author": {
+    "name": "Mateusz Kozłowski",
+    "url": "https://github.com/mateuszkozlowski"
+  },
+  "homepage": "https://github.com/mateuszkozlowski/codex-humanizer-pl",
+  "repository": "https://github.com/mateuszkozlowski/codex-humanizer-pl",
+  "license": "MIT",
+  "keywords": [
+    "writing",
+    "editing",
+    "humanize",
+    "polish",
+    "ai-writing"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Humanizer PL",
+    "shortDescription": "Humanizuje polskie i angielskie teksty",
+    "longDescription": "Dwujęzyczny skill do Codex, który usuwa AI-slop, zachowując sens, fakty, źródła, żargon i głos autora.",
+    "developerName": "Mateusz Kozłowski",
+    "category": "Productivity",
+    "capabilities": [
+      "Write"
+    ],
+    "websiteURL": "https://github.com/mateuszkozlowski/codex-humanizer-pl",
+    "defaultPrompt": [
+      "Użyj humanizer-pl i usuń AI-slop z tego tekstu.",
+      "Zhumanizuj ten tekst bez zmiany faktów i mojego głosu."
+    ]
+  }
+}

@@ -22,6 +22,18 @@ FORBIDDEN = "\u2014\u2013"
 PLACEHOLDER_RE = re.compile(r"\b(?:TODO|TBD|FIXME|PLACEHOLDER)\b|\[\s*placeholder\s*\]", re.I)
 NUMBER_RE = re.compile(r"(?<!\w)\d+(?:[.,]\d+)?%?(?!\w)")
 URL_RE = re.compile(r"https?://[^\s)\]>]+")
+PROCESS_ARTIFACTS = (
+    "as an ai language model",
+    "as a language model",
+    "jako model językowy",
+    "i'll now",
+    "i will now",
+    "teraz przejdę do",
+    "poniżej przedstawiam",
+    "here's an overview",
+    "here is an overview",
+    "in the following sections",
+)
 
 
 def _config() -> dict:
@@ -38,6 +50,14 @@ def _counts(pattern: re.Pattern[str], text: str) -> Counter[str]:
 
 def _urls(text: str) -> set[str]:
     return {url.rstrip(".,;:!?\"'") for url in URL_RE.findall(text)}
+
+
+def _paragraphs(text: str) -> list[str]:
+    return [
+        re.sub(r"\s+", " ", block).strip()
+        for block in re.split(r"\n\s*\n", text)
+        if block.strip()
+    ]
 
 
 def check(input_text: str, output_text: str, lang: str = "auto", preserve: Iterable[str] = ()) -> dict[str, bool]:
@@ -61,7 +81,10 @@ def check(input_text: str, output_text: str, lang: str = "auto", preserve: Itera
         "not_longer_than_input": len(output_text) <= len(input_text),
         "first_line_not_filler": not any(_first_nonempty(output_text).lower().startswith(item) for item in fillers),
         "no_chatbot_artifacts": not any(item in lower for item in artifacts),
+        "no_process_artifacts": not any(item in lower for item in PROCESS_ARTIFACTS),
         "no_placeholders": not PLACEHOLDER_RE.search(output_text),
+        "no_duplicate_paragraphs": len(_paragraphs(output_text)) == len(set(_paragraphs(output_text))),
+        "markdown_fences_balanced": output_text.count("```") % 2 == 0,
         "language_signals_preserved": detected != "pl" or bool(re.search(r"[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]", output_text)),
         "urls_preserved": urls_in <= urls_out,
         "numbers_preserved": all(numbers_out[token] >= count for token, count in numbers_in.items()),

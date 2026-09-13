@@ -15,6 +15,8 @@ Mechaniczne bramki nie zastępują lektury. Przed oddaniem finalnego tekstu prze
 - Czy rozbito powtarzające się schematy, ale nie usunięto celowej emfazy?
 - Czy polski nie brzmi jak tłumaczenie: są czasowniki osobowe, naturalny szyk i właściwy rejestr?
 - Czy zmiany obejmują strukturę, gdy problem był strukturalny, a nie tylko myślniki i pojedyncze słowa?
+- Czy tropy z `advanced-tropes.md` występują jako skupisko, a nie pojedynczy fałszywy alarm?
+- Czy zachowano celowe formatowanie, rytm, humor i nietypowy, ale autorski sposób pisania?
 
 ## 3. Bramki deterministyczne
 
@@ -32,3 +34,6 @@ python3 evals/run_qa.py
 ```
 
 Jeśli bramka nie przechodzi, nie maskuj problemu komentarzem. Popraw tekst albo jawnie zgłoś użytkownikowi konflikt między wiernością treści a mechaniczną regułą.
+
+Przy tekście z bibliografią lub Markdownem sprawdź także linki, identyfikatory,
+etykiety cytowań, nagłówki i domknięcie bloków kodu. Nie zgaduj brakujących źródeł.

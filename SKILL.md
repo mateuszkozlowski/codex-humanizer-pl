@@ -19,6 +19,8 @@ To jest port Codex forka `pielas-activy/humanizer-pl`. Nie traktuj instrukcji an
 - Dla EN przeczytaj `references/patterns-en.md`.
 - Przy tekście mieszanym pracuj fragmentami w ich językach; nie tłumacz.
 - `references/przyklady.md` czytaj tylko wtedy, gdy potrzebujesz kalibracji.
+- Przy długim, sformatowanym lub wyraźnie schematycznym tekście przeczytaj także
+  `references/advanced-tropes.md`; nie ładuj jej automatycznie do krótkiej korekty.
 - Jeśli istnieje `references/jargon-profile.local.md`, wczytaj go. Terminy z profilu są chronione i nie wolno ich tłumaczyć ani poprawiać.
 
 ## Proces
@@ -28,9 +30,10 @@ To jest port Codex forka `pielas-activy/humanizer-pl`. Nie traktuj instrukcji an
 3. Przygotuj draft. Przepisuj, nie dopisuj: zachowaj wszystkie istotne treści, fakty, liczby, cytaty, nazwy i język. Zwykle utrzymaj układ akapitów.
 4. Usuń wypełniacze, promocję bez dowodu, sztuczne atrybucje, powtarzalny rytm, rule of three, anafory, staccato i konstrukcje `to nie X, to Y`, gdy są mechanicznym schematem.
 5. Nie bądź kosmetyczny. Jeśli problemem jest struktura, przebuduj zdanie lub akapit, a nie tylko zamieniaj znaki interpunkcyjne. Chroń konkretne szczegóły, liczby, nazwiska, żargon i autentyczne wahanie autora.
-6. Zrób audyt: zapytaj, co nadal brzmi jak AI, i popraw tylko uzasadnione miejsca.
-7. Dla PL wykonaj drugi przebieg z `references/polszczyzna-pl.md`: składnia, czasowniki osobowe, kalki, anglicyzmy i parataksa.
-8. Przeskanuj finalny tekst przed oddaniem.
+6. Przy długim lub sformatowanym tekście wykonaj drugi, selektywny przebieg z `references/advanced-tropes.md`: meta-komunikacja, retoryka, leksyka i formatowanie. Traktuj te wzorce jako heurystyki, nie dowody autorstwa.
+7. Zrób audyt: zapytaj, co nadal brzmi jak AI, i popraw tylko uzasadnione miejsca.
+8. Dla PL wykonaj drugi przebieg z `references/polszczyzna-pl.md`: składnia, czasowniki osobowe, kalki, anglicyzmy i parataksa.
+9. Przeskanuj finalny tekst przed oddaniem.
 
 ## Twarde bramki wyniku
 
@@ -74,6 +77,10 @@ Wykonaj pięć różnych kontroli:
 4. **Bramki mechaniczne.** Jeśli pracujesz na plikach, uruchom `python3 scripts/validate_output.py --input input.txt --output output.txt --lang auto`. Skrypt sprawdza puste wyjście, zakazane frazy i znaki, język, długość, URL-e, liczby, placeholdery oraz opcjonalne fragmenty chronione.
 5. **Czytanie na ślepo.** Przeczytaj finalny tekst bez patrzenia na draft i odpowiedz: czy brzmi jak konkretna osoba, czy jak gładki generator? Jeśli zmiana jest wyłącznie kosmetyczna, wróć do struktury najsłabszego akapitu.
 
+6. **Heurystyki, nie wyrok.** Jeśli podejrzany jest tylko pojedynczy trop, zostaw go
+   albo pokaż jako opcjonalną uwagę. Szukaj skupisk wzorców i sprawdzaj, czy dany
+   element nie wynika z gatunku, formatowania, cytatu lub świadomego głosu autora.
+
 Pełna lista kontrolna jest w `references/qa-checklist.md`. Gdy bramka mechaniczna i wierność treści są w konflikcie, zachowaj treść i zgłoś konflikt użytkownikowi zamiast ją po cichu usuwać.
 
 ## Evals
@@ -86,6 +93,9 @@ python3 evals/run_qa.py
 ```
 
 `run_evals.py` jest oryginalnym smoke testem projektu i pozostaje niezmieniony. `run_qa.py` uruchamia dodatkowe syntetyczne przypadki oraz te same bramki na oryginalnych parach.
+
+Testy nie próbują rozstrzygać, czy tekst napisał człowiek albo model. Sprawdzają
+zachowanie skilla po przepisaniu i chronią przed regresją treści oraz formatowania.
 
 ## Atrybucja
 

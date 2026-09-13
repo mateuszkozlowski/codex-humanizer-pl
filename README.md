@@ -41,6 +41,20 @@ instalacja Ollama/modelu wymaga osobnego potwierdzenia, bo może pobrać kilka g
 5. **Uczy się Twojego żargonu (opcjonalnie).** Wykrywa branżowe terminy i może zapamiętać Twoją
    osobistą listę "tego nie ruszaj", per user i lokalnie. Szczegóły w sekcji "Profil żargonu".
 
+## Wyróżniki portu Codex
+
+- **Warstwowa kontrola.** Oprócz przepisywania jest osobny audyt sensu, języka,
+  struktury i bramek mechanicznych.
+- **Katalog dodatkowych tropów.** Długie teksty mogą dostać selektywny przegląd
+  meta-komunikacji, sztucznej retoryki, duplikatów treści, enumeracji i formatowania.
+  Szczegóły są w [`references/advanced-tropes.md`](references/advanced-tropes.md).
+- **Ostrożność wobec fałszywych alarmów.** Skill nie udaje detektora autorstwa:
+  pojedynczy znak lub słowo nie wystarcza do zmiany tekstu, a ludzki, nietypowy
+  styl ma zostać zachowany.
+- **Kalibracja ślepa.** Evals zawierają regresję techniczną; dla własnych testów
+  można dodatkowo mieszać teksty ludzkie, AI i nietypowe oraz zapisywać pewność
+  rozpoznania, zamiast liczyć jeden pozornie precyzyjny wynik.
+
 ## Tryby recenzenta polszczyzny
 
 - **Bez Bielika (domyślny).** Recenzentem jest główny model. Zero zależności, działa wszędzie.
@@ -80,6 +94,7 @@ humanizer-pl/
     patterns-pl.md          6 kategorii PL + rodzina "manufaktura rytmu"
     polszczyzna-pl.md        warstwa naturalności PL (anglicyzmy, czasowniki, kalki,
                             ukryty "nie X, to Y", parataksa -> hipotaksa, skan kalek)
+    advanced-tropes.md       dodatkowe tropy struktury, retoryki, meta i markup; heurystyki
     przyklady.md            oryginalne pary PRZED/PO + dodatkowe pary QA Codex
     raport-html.md          szablon raportu HTML (side-by-side + lista zmian), tryb opcjonalny
     qa-checklist.md         ręczna kontrola sensu, języka i zgodności wyniku
@@ -112,6 +127,7 @@ python3 evals/run_qa.py
 
 Pierwszy runner sprawdza oryginalne binarne asercje. Drugi dodaje kontrolę liczb, URL-i, języka,
 placeholderów, fragmentów chronionych i pustego wyniku oraz uruchamia dodatkowe przypadki regresyjne.
+To QA wyjścia, nie klasyfikator autorstwa.
 
 ## Użycie
 
@@ -125,5 +141,10 @@ Auto-wykrywa PL/EN. Tryb z Bielikiem: "zhumanizuj + sprawdź Bielikiem". Raport 
 Ten fork Codex bazuje na [pielas-activy/humanizer-pl](https://github.com/pielas-activy/humanizer-pl)
 (MIT). Oryginalny projekt zawiera polskie warstwy, integrację z Bielikiem i evals; angielskie
 wzorce zostały przejęte z [blader/humanizer](https://github.com/blader/humanizer), który bazuje
-na przewodniku "Signs of AI writing". Port Codex dodaje metadane `agents/openai.yaml`, zmienia
-ścieżki i dostosowuje zasady uruchamiania opcjonalnych narzędzi. Szczegóły są w `LICENSE`.
+na przewodniku [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing).
+Dodatkowy katalog tropów jest kuratorsko zainspirowany przez
+[tropes.md](https://tropes.fyi/tropes-md), a procedura kalibracji ślepej przez
+[AI or not quiz](https://en.wikipedia.org/wiki/Wikipedia:AI_or_not_quiz). Port Codex dodaje
+metadane `agents/openai.yaml`, zmienia ścieżki, warstwowe QA i dostosowuje zasady uruchamiania
+opcjonalnych narzędzi. Żadne z tych źródeł nie jest traktowane jako dowód autorstwa tekstu.
+Szczegóły są w `LICENSE`.

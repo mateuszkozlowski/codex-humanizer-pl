@@ -62,15 +62,30 @@ Zwróć:
 
 Jeśli użytkownik prosi o `raport HTML`, `side by side`, `raport zmian` lub `diff HTML`, przeczytaj `references/raport-html.md` i dodatkowo wygeneruj samodzielny plik HTML z oryginałem, wynikiem, podświetleniem zmian oraz tabelą zmian. Raport nie zastępuje wyniku w rozmowie.
 
+## Wielowarstwowa kontrola jakości
+
+Przed przepisaniem zbuduj w głowie krótką kartę kontrolną: podmioty, liczby, daty, URL-e, nazwy własne, cytaty, negacje, modalność (`może`, `powinien`, `prawdopodobnie`) oraz związki przyczynowo-skutkowe. Po draftcie sprawdź każdy element ponownie. Nie ufaj temu, że podobne słowo oznacza to samo.
+
+Wykonaj pięć różnych kontroli:
+
+1. **Sens i pokrycie.** Czy każda informacja z wejścia ma odpowiednik w wyniku? Czy nie zmienił się zakres twierdzenia, podmiot, liczba, data, cytat ani zastrzeżenie?
+2. **Struktura.** Czy tekst jest konkretniejszy i mniej schematyczny? Czy usunięcie wypełniacza nie usunęło uzasadnienia, przykładu albo ważnej puenty?
+3. **Polszczyzna/English.** Dla PL sprawdź czasowniki osobowe, szyk, kalki i rejestr; dla EN sprawdź naturalną składnię, dobór słów i brak chatbotowych zakończeń.
+4. **Bramki mechaniczne.** Jeśli pracujesz na plikach, uruchom `python3 scripts/validate_output.py --input input.txt --output output.txt --lang auto`. Skrypt sprawdza puste wyjście, zakazane frazy i znaki, język, długość, URL-e, liczby, placeholdery oraz opcjonalne fragmenty chronione.
+5. **Czytanie na ślepo.** Przeczytaj finalny tekst bez patrzenia na draft i odpowiedz: czy brzmi jak konkretna osoba, czy jak gładki generator? Jeśli zmiana jest wyłącznie kosmetyczna, wróć do struktury najsłabszego akapitu.
+
+Pełna lista kontrolna jest w `references/qa-checklist.md`. Gdy bramka mechaniczna i wierność treści są w konflikcie, zachowaj treść i zgłoś konflikt użytkownikowi zamiast ją po cichu usuwać.
+
 ## Evals
 
 Evals są zamrożonym smoke testem referencji i przykładów, nie testem jakości generowania. Uruchom z katalogu skilla:
 
 ```bash
 python3 evals/run_evals.py
+python3 evals/run_qa.py
 ```
 
-Powinny przejść wszystkie asercje dla zapisanych par wejście/wyjście.
+`run_evals.py` jest oryginalnym smoke testem projektu i pozostaje niezmieniony. `run_qa.py` uruchamia dodatkowe syntetyczne przypadki oraz te same bramki na oryginalnych parach.
 
 ## Atrybucja
 

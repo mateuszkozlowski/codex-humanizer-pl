@@ -80,14 +80,17 @@ humanizer-pl/
     patterns-pl.md          6 kategorii PL + rodzina "manufaktura rytmu"
     polszczyzna-pl.md        warstwa naturalności PL (anglicyzmy, czasowniki, kalki,
                             ukryty "nie X, to Y", parataksa -> hipotaksa, skan kalek)
-    przyklady.md            pary PRZED/PO (PL z banku, EN z blader)
+    przyklady.md            oryginalne pary PRZED/PO + dodatkowe pary QA Codex
     raport-html.md          szablon raportu HTML (side-by-side + lista zmian), tryb opcjonalny
+    qa-checklist.md         ręczna kontrola sensu, języka i zgodności wyniku
   evals/
     evals.json              6 binarnych asercji + 2 zamrożone case'y
     run_evals.py            deterministyczny runner
+    qa_cases.json           dodatkowe syntetyczne przypadki regresyjne
+    run_qa.py               runner rozszerzonych bramek QA
   agents/openai.yaml        metadane interfejsu Codex
   scripts/                  tryb "z Bielikiem" (opcjonalny)
-    install-bielik.sh, bielik-advisor.py, bielik-review.py
+    install-bielik.sh, bielik-advisor.py, bielik-review.py, validate_output.py
 ```
 
 ## Twarde zasady wyjścia
@@ -104,10 +107,11 @@ zawiera.
 
 ```bash
 python3 evals/run_evals.py
+python3 evals/run_qa.py
 ```
 
-Sprawdza 6 binarnych asercji na zamrożonych przykładach: brak myślnika, polskie znaki, brak słów
-z banów, output nie dłuższy niż input, pierwsza linia nie wypełniacz, brak artefaktów chatbota.
+Pierwszy runner sprawdza oryginalne binarne asercje. Drugi dodaje kontrolę liczb, URL-i, języka,
+placeholderów, fragmentów chronionych i pustego wyniku oraz uruchamia dodatkowe przypadki regresyjne.
 
 ## Użycie
 

@@ -294,3 +294,85 @@ nostalgia for human taste. The old rules were gone.
 
 **After:** AlphaEvolve changed the search because it did not favor symmetry or human-looking designs.
 That made some of the older assumptions less useful.
+
+---
+
+## Dodatkowe pary do QA Codex
+
+Poniższe przykłady rozszerzają oryginalny bank o przypadki, które łatwo przeoczyć w praktyce.
+
+### PL 16 - zdanie bez czasownika
+
+**PRZED:** Najważniejsza w tym procesie jasność odpowiedzialności za wynik.
+
+**PO:** Najważniejsze jest jasne wskazanie osoby odpowiedzialnej za wynik.
+
+### PL 17 - kalka z angielskiego
+
+**PRZED:** Na ten moment zespół jest w procesie adresowania problemu.
+
+**PO:** Zespół właśnie rozwiązuje ten problem.
+
+### PL 18 - sztuczny wstęp
+
+**PRZED:** Warto zauważyć, że poniższa decyzja ma kluczowe znaczenie dla dalszego rozwoju projektu.
+
+**PO:** Ta decyzja określi następny etap projektu.
+
+### PL 19 - fałszywa obietnica
+
+**PRZED:** To rozwiązanie całkowicie zmieni sposób, w jaki pracuje każdy zespół.
+
+**PO:** To rozwiązanie skraca jeden etap pracy zespołu.
+
+### PL 20 - urwane zdania
+
+**PRZED:** Mniej spotkań. Więcej decyzji. Szybsze działanie.
+
+**PO:** Mniej spotkań pozwala szybciej podejmować decyzje i działać.
+
+### PL 21 - żargon autora
+
+**PRZED:** Po wdrożeniu discovery zespół wróci do refinementu.
+
+**PO:** Po wdrożeniu discovery zespół wróci do refinementu.
+
+Żargonu nie tłumacz, jeśli autor używa go świadomie.
+
+### EN 10 - vague attribution
+
+**Before:** Experts agree that this important shift is changing the way everyone works.
+
+**After:** The shift changes how the team assigns work.
+
+### EN 11 - unnecessary hedging
+
+**Before:** It may perhaps be worth considering a possible change to the review process.
+
+**After:** Consider changing the review process.
+
+### EN 12 - stacked adjectives
+
+**Before:** The team built a comprehensive, scalable, and innovative workflow.
+
+**After:** The team built a workflow for reviewing requests.
+
+### EN 13 - repeated opener
+
+**Before:** By doing X, the team gains speed. By doing Y, it gains clarity. By doing Z, it gains trust.
+
+**After:** The team gains speed, clarity, and trust by changing the workflow.
+
+### EN 14 - empty conclusion
+
+**Before:** In conclusion, the future looks bright and exciting for everyone involved.
+
+**After:** The team can now review requests in one place.
+
+### EN 15 - protected technical term
+
+**Before:** The team tuned the cache before the release.
+
+**After:** The team tuned the cache before the release.
+
+Keep an intentional technical term when replacing it would reduce precision.

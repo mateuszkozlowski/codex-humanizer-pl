@@ -2,11 +2,18 @@ MIT License
 
 Copyright (c) 2026 Igor Pielas
 
-This project is a fork of and builds on "humanizer" by blader
+Copyright (c) 2026 Mateusz Kozłowski (Codex port, marketplace packaging,
+additional QA and Codex-specific documentation)
+
+This project is a fork of and builds on "humanizer-pl" by pielas-activy
+(https://github.com/pielas-activy/humanizer-pl), which is also MIT licensed.
+That project builds on "humanizer" by blader
 (https://github.com/blader/humanizer), which is also MIT licensed. The English
 patterns in references/patterns-en.md are reproduced 1:1 from blader/humanizer.
-All Polish-language layers (patterns-pl.md, polszczyzna-pl.md), the Bielik
-integration, the evals harness and the documentation are additions.
+The Polish-language layers, Bielik integration, original eval fixtures and
+original examples are retained from humanizer-pl. The Codex port adds the
+Codex skill metadata, marketplace/plugin packaging, layered QA, Codex-specific
+documentation and related adaptations.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

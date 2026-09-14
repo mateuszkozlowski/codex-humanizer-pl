@@ -1,13 +1,17 @@
-# humanizer-pl
+# humanizer-pl - Polish AI Text Humanizer Skill for Codex and GPT
 
-Dwujęzyczny (PL + EN) skill do Codex, który usuwa oznaki pisania AI z tekstu, zachowując sens,
-fakty i głos autora. To fork [pielas-activy/humanizer-pl](https://github.com/pielas-activy/humanizer-pl),
-który z kolei rozszerza [blader/humanizer](https://github.com/blader/humanizer) o pełną warstwę
-polskiej naturalności.
+Dwujęzyczny (PL + EN) **AI text humanizer** dla Codex, GPT i ChatGPT. Ten skill usuwa oznaki
+pisania AI z polskich i angielskich tekstów, zachowując sens, fakty, źródła i głos autora.
+To fork [pielas-activy/humanizer-pl](https://github.com/pielas-activy/humanizer-pl), który z kolei
+rozszerza [blader/humanizer](https://github.com/blader/humanizer) o pełną warstwę polskiej
+naturalności.
 
 > **TL;DR (EN):** A bilingual de-slop skill. Removes AI-writing tells from Polish AND English text
 > while preserving meaning and voice. The English patterns come 1:1 from blader/humanizer; the
 > Polish layers, the Bielik advisor and the eval harness are new. Auto-detects language.
+
+Szukaj też pod hasłami: **Polish AI text humanizer**, **Codex writing skill**, **GPT/ChatGPT
+writing editor**, **AI slop remover** i **de-AI writing tool**.
 
 ## Po co to
 
@@ -155,7 +159,9 @@ To QA wyjścia, nie klasyfikator autorstwa.
 
 ## Użycie
 
-W Codex: `$humanizer-pl` albo "zhumanizuj ten post / wywal AI-slop z tego maila".
+W Codex wywołaj [`$humanizer-pl:humanizer-pl`](https://github.com/mateuszkozlowski/codex-humanizer-pl/blob/main/plugins/humanizer-pl/skills/humanizer-pl/SKILL.md)
+albo użyj krótszego `$humanizer-pl`. Przykładowe polecenia: "zhumanizuj ten post", "wywal
+AI-slop z tego maila" albo "przepisz ten tekst naturalniej, zachowując fakty".
 Auto-wykrywa PL/EN. Tryb z Bielikiem: "zhumanizuj + sprawdź Bielikiem". Raport HTML ze zmianami
 (side-by-side + lista zmian): "zhumanizuj + raport HTML". Profil żargonu (czego nie tłumaczyć):
 "zapamiętaj mój żargon".

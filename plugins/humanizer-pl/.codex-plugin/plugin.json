@@ -1,7 +1,7 @@
 {
   "name": "humanizer-pl",
   "version": "1.0.0",
-  "description": "Humanizuje polskie i angielskie teksty, usuwając sygnały pisania AI bez zmiany sensu, faktów i głosu autora.",
+  "description": "Bilingual Polish and English AI text humanizer skill for Codex, GPT, and ChatGPT that removes AI-writing tells without changing meaning, facts, or voice.",
   "author": {
     "name": "Mateusz Kozłowski",
     "url": "https://github.com/mateuszkozlowski"
@@ -14,13 +14,18 @@
     "editing",
     "humanize",
     "polish",
-    "ai-writing"
+    "ai-writing",
+    "codex",
+    "gpt",
+    "chatgpt",
+    "ai-text-humanizer",
+    "de-ai"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Humanizer PL",
     "shortDescription": "Humanizuje polskie i angielskie teksty",
-    "longDescription": "Dwujęzyczny skill do Codex, który usuwa AI-slop, zachowując sens, fakty, źródła, żargon i głos autora.",
+    "longDescription": "Dwujęzyczny Polish and English AI text humanizer dla Codex, GPT i ChatGPT. Usuwa AI-slop i sztuczne wzorce pisania, zachowując sens, fakty, źródła, żargon i głos autora.",
     "developerName": "Mateusz Kozłowski",
     "category": "Productivity",
     "capabilities": [

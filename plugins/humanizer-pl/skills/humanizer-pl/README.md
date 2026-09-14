@@ -1,183 +1,204 @@
-# humanizer-pl - Polish AI Text Humanizer Skill for Codex and GPT
+# humanizer-pl - Polish and English AI Text Humanizer for Codex, GPT and ChatGPT
 
 [![Quality checks](https://github.com/mateuszkozlowski/codex-humanizer-pl/actions/workflows/quality.yml/badge.svg)](https://github.com/mateuszkozlowski/codex-humanizer-pl/actions/workflows/quality.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Dwujęzyczny (PL + EN) **AI text humanizer** dla Codex, GPT i ChatGPT. Ten skill usuwa oznaki
-pisania AI z polskich i angielskich tekstów, zachowując sens, fakty, źródła i głos autora.
-To fork [pielas-activy/humanizer-pl](https://github.com/pielas-activy/humanizer-pl), który z kolei
-rozszerza [blader/humanizer](https://github.com/blader/humanizer) o pełną warstwę polskiej
-naturalności.
+## AI writes smooth. People write specific.
 
-> **TL;DR (EN):** A bilingual de-slop skill. Removes AI-writing tells from Polish AND English text
-> while preserving meaning and voice. The English patterns come 1:1 from blader/humanizer; the
-> Polish layers, the Bielik advisor and the eval harness are new. Auto-detects language.
+`humanizer-pl` is a bilingual **AI text humanizer** for Codex, GPT and ChatGPT. It removes common
+AI-writing tells from Polish and English while preserving meaning, facts, citations, terminology
+and the author's voice.
 
-Szukaj też pod hasłami: **Polish AI text humanizer**, **Codex writing skill**, **GPT/ChatGPT
-writing editor**, **AI slop remover** i **de-AI writing tool**.
+Polish is not translated English. GPT and Claude have their own Polish tells: calques, adjective
+chains, too many participles, inflated openings and choppy parataxis. This skill checks both
+languages and changes the text only when there is a reason to do so.
 
-## Po co to
+> **TL;DR (EN):** A bilingual de-slop skill for Codex, GPT and ChatGPT. It auto-detects Polish or
+> English, removes AI-writing tells, preserves meaning and voice, and runs layered output QA. The
+> English patterns come 1:1 from [blader/humanizer](https://github.com/blader/humanizer); the
+> Polish layers, Bielik advisor and eval harness come from the upstream Polish project.
 
-Każdy de-AI/humanizer w sieci jest po angielsku. Polski AI-slop to jednak NIE przetłumaczony
-angielski: GPT i Claude po polsku mają własne tells (kalki, nadmiar imiesłowów, klisze epoki,
-parataksa zamiast hipotaksy). `humanizer-pl` celuje w jedno i drugie.
+**[Install](#install) · [See it](#see-it) · [Use it](#use-it) · [What it checks](#what-it-checks) · [Bielik](#optional-bielik-reviewer) · [Attribution](#attribution)**
 
-## Instalacja
+## See it
 
-Skopiuj do katalogu skilli Codex:
+AI version:
+
+> Dzień dobry, w nawiązaniu do Państwa zapytania, pragnę uprzejmie poinformować, że nasz
+> dedykowany zespół dołoży wszelkich starań, aby kompleksowo sprostać Państwa oczekiwaniom.
+
+Human version:
+
+> Dzień dobry, sprawdziłem Państwa zapytanie - zrobimy to do piątku. Cena bez zmian, 4 200 zł
+> netto. Jakby cokolwiek było niejasne, proszę pisać. Pozdrawiam.
+
+The full bank contains **15 Polish pairs** plus the original English pairs from `blader/humanizer`:
+[`references/przyklady.md`](references/przyklady.md).
+
+## Install
+
+### Codex marketplace - recommended
+
+Add this marketplace in Codex:
+
+```text
+https://github.com/mateuszkozlowski/codex-humanizer-pl
+```
+
+The marketplace marks **Humanizer PL** for automatic installation. If you added the marketplace
+but the plugin is not active yet, run:
+
+```bash
+codex plugin add humanizer-pl@codex-humanizer-pl
+```
+
+After installing a plugin, open a new Codex task and invoke `$humanizer-pl`.
+
+### Standalone skill
 
 ```bash
 git clone https://github.com/mateuszkozlowski/codex-humanizer-pl \
   ~/.codex/skills/humanizer-pl
 ```
 
-Działa od razu w trybie domyślnym, bez zależności. Tryb z Bielikiem jest opcjonalny i lokalny;
-instalacja Ollama/modelu wymaga osobnego potwierdzenia, bo może pobrać kilka gigabajtów.
+The default mode has no dependencies. The optional Bielik mode is local and requires Ollama plus
+a model download.
 
-### Instalacja jako plugin marketplace Codex
+## Use it
 
-Repozytorium zawiera manifest marketplace w `.agents/plugins/marketplace.json` oraz plugin
-Codex w `plugins/humanizer-pl/`. W Codex wybierz dodawanie marketplace, podaj:
+In Codex, use the full name:
 
 ```text
-https://github.com/mateuszkozlowski/codex-humanizer-pl
+$humanizer-pl:humanizer-pl
 ```
 
-Plugin **Humanizer PL** jest oznaczony jako instalowany domyślnie po dodaniu marketplace.
-Jeśli używasz starszego cache albo nie zainstalował się automatycznie, wykonaj:
+Or the short name:
+
+```text
+$humanizer-pl
+```
+
+Examples:
+
+```text
+zhumanizuj ten post, zachowaj fakty i mój ton
+wywal AI-slop z tego maila
+przepisz ten tekst naturalniej, ale nie zmieniaj terminologii
+zhumanizuj + sprawdź Bielikiem
+zhumanizuj + raport HTML
+zapamiętaj mój żargon
+```
+
+The skill detects PL/EN automatically. It does not require a separate command for each pattern.
+
+## What it checks
+
+One pass is not enough. The skill routes the text through separate checks and stops before it
+silently changes something that matters.
+
+| Layer | What it does |
+| --- | --- |
+| Language | Detects Polish or English and loads only the relevant pattern set. |
+| De-slop | Removes inflated openings, promotional filler, vague attributions, chatbot politeness, rule-of-three phrasing, negative parallelisms and other recurring tells. |
+| Polish naturalness | Checks calques, lazy anglicisms, adjective chains, participles and parataxis; preserves deliberate professional jargon. |
+| Structure | Rebuilds sentence rhythm where needed instead of only swapping punctuation or synonyms. |
+| Protected content | Keeps numbers, URLs, citations, placeholders, names, terminology and the requested language. |
+| Final gates | Checks Polish diacritics, forbidden dash characters, non-empty output and factual identity. |
+
+For longer texts, an additional selective catalogue covers meta-commentary, artificial rhetoric,
+duplicated conclusions, enumeration and formatting: [`references/advanced-tropes.md`](references/advanced-tropes.md).
+
+### What it does not claim
+
+This is a writing aid, not an authorship detector. One word, one dash or one sentence structure
+is not proof that a text was generated by AI. Unusual human writing should survive the pass. The
+goal is a more natural draft, not a verdict about who wrote it.
+
+## Optional Bielik reviewer
+
+The default reviewer is the main model, so the skill works everywhere with no setup.
+
+In the optional Bielik mode, a local Bielik model through Ollama can flag possible Polish calques
+or suggest alternatives. Bielik **does not rewrite the text automatically**: the main model
+evaluates each suggestion, shows risky changes and leaves the final decision to the user.
+
+Install only when you explicitly want this mode:
 
 ```bash
-codex plugin add humanizer-pl@codex-humanizer-pl
+./scripts/install-bielik.sh
 ```
 
-Jeśli chcesz użyć standalone skilla bez marketplace, nadal działa instalacja przez `git clone`
-opisana wyżej.
+The installer explains that Ollama and the model may download several gigabytes. Setup details:
+[`references/setup-bielik.md`](references/setup-bielik.md).
 
-## Co robi
+## Personal jargon profile
 
-1. **Wykrywa język** -> ładuje wzorce PL albo EN (progressive disclosure, czyta tylko to, czego
-   potrzebuje).
-2. **De-slop, odważnie.** Usuwa myślnik długi, "to nie X, to Y", rule of three, anaforę, watę.
-   Przepisuje strukturę zdań, nie tylko interpunkcję.
-3. **Przebieg polszczyzny (tylko PL).** Tłumaczy leniwe anglicyzmy (zostawia żargon autora),
-   pilnuje czasowników, rozwija kalki-przymiotniki, łapie ukryty "nie X, to Y" i **scala urywane
-   zdania w złożone** (parataksa -> hipotaksa, najsilniejszy polski tell). Na końcu osobny **skan
-   kalek** (test odwrotnego tłumaczenia, nie zamknięta lista).
-4. **Final.** Skan: zero myślnika długiego, pełne ogonki, fakty 1:1.
-5. **Uczy się Twojego żargonu (opcjonalnie).** Wykrywa branżowe terminy i może zapamiętać Twoją
-   osobistą listę "tego nie ruszaj", per user i lokalnie. Szczegóły w sekcji "Profil żargonu".
+The skill does not hard-code a legal, marketing or technical dictionary. You can ask it to
+`zapamiętaj mój żargon` or `zbuduj mój profil żargonu`.
 
-## Wyróżniki portu Codex
+After confirmation, the private list is stored locally in
+`references/jargon-profile.local.md` and is ignored by Git. The profile helps preserve terms such
+as `cesja`, `rękojmia`, `lead` or `funnel` instead of translating or smoothing them away.
 
-- **Warstwowa kontrola.** Oprócz przepisywania jest osobny audyt sensu, języka,
-  struktury i bramek mechanicznych.
-- **Katalog dodatkowych tropów.** Długie teksty mogą dostać selektywny przegląd
-  meta-komunikacji, sztucznej retoryki, duplikatów treści, enumeracji i formatowania.
-  Szczegóły są w [`references/advanced-tropes.md`](references/advanced-tropes.md).
-- **Ostrożność wobec fałszywych alarmów.** Skill nie udaje detektora autorstwa:
-  pojedynczy znak lub słowo nie wystarcza do zmiany tekstu, a ludzki, nietypowy
-  styl ma zostać zachowany.
-- **Kalibracja ślepa.** Evals zawierają regresję techniczną; dla własnych testów
-  można dodatkowo mieszać teksty ludzkie, AI i nietypowe oraz zapisywać pewność
-  rozpoznania, zamiast liczyć jeden pozornie precyzyjny wynik.
+## Checks and evals
 
-## Tryby recenzenta polszczyzny
-
-- **Bez Bielika (domyślny).** Recenzentem jest główny model. Zero zależności, działa wszędzie.
-- **Z Bielikiem (opcja).** Lokalny natywny polski LLM (Bielik-11B przez Ollama) DORADZA, główny
-  model osądza, a propozycje trafiają do użytkownika do decyzji. Instalator
-  `scripts/install-bielik.sh` działa dopiero po potwierdzeniu. Setup:
-  [`references/setup-bielik.md`](references/setup-bielik.md).
-
-### Dlaczego Bielik jest tylko doradcą?
-
-Bielik może wskazać możliwe kalki i nienaturalny szyk, ale nie powinien sam przepisywać tekstu.
-Główny model ocenia każdą propozycję, pilnuje faktów, a użytkownik decyduje, co przyjąć. Dzięki
-temu lokalny model jest dodatkowym sygnałem, nie ukrytym autorem zmian.
-
-## Profil żargonu (opcjonalny, per user)
-
-Skill nie zna z góry niczyjego żargonu i celowo go nie hardkoduje (nie jest "do AI" ani do żadnej
-jednej branży). Zamiast tego potrafi **wykryć Twój żargon i go zapamiętać**:
-
-- Gdy w tekście widzi dużo powracających, branżowych terminów (prawnik: "cesja", "rękojmia";
-  marketer: "lead", "funnel"), sam proponuje krótką sesję w stylu "zapamiętać, których nie ruszać?".
-- Możesz to też odpalić wprost: "zapamiętaj mój żargon" albo "zbuduj mój profil żargonu".
-- Potwierdzoną listę zapisuje lokalnie w `references/jargon-profile.local.md` (prywatnie, per
-  maszyna, gitignore, nie trafia do repo) i przy kolejnych tekstach pilnuje, żeby tych słów nie
-  tłumaczyć ani nie "poprawiać".
-
-Każdy ma swój profil: prawnik prawniczy, marketer marketingowy, Ty swój. Dzięki temu uniwersalny
-skill nie przekłada Twojego fachowego słownictwa na siłę.
-
-## Struktura
-
-```
-humanizer-pl/
-  .agents/plugins/marketplace.json
-                            manifest marketplace Codex
-  SKILL.md                  router: wykryj język -> wzorce -> proces -> (PL) polszczyzna
-  plugins/humanizer-pl/     opakowanie pluginu Codex
-    .codex-plugin/plugin.json
-    skills/humanizer-pl/    pełna kopia standalone skilla
-  references/
-    patterns-en.md          33 wzorce blader 1:1 (EN) + TOC
-    patterns-pl.md          6 kategorii PL + rodzina "manufaktura rytmu"
-    polszczyzna-pl.md        warstwa naturalności PL (anglicyzmy, czasowniki, kalki,
-                            ukryty "nie X, to Y", parataksa -> hipotaksa, skan kalek)
-    advanced-tropes.md       dodatkowe tropy struktury, retoryki, meta i markup; heurystyki
-    przyklady.md            oryginalne pary PRZED/PO + dodatkowe pary QA Codex
-    raport-html.md          szablon raportu HTML (side-by-side + lista zmian), tryb opcjonalny
-    qa-checklist.md         ręczna kontrola sensu, języka i zgodności wyniku
-  evals/
-    evals.json              6 binarnych asercji + 2 zamrożone case'y
-    run_evals.py            deterministyczny runner
-    qa_cases.json           dodatkowe syntetyczne przypadki regresyjne
-    run_qa.py               runner rozszerzonych bramek QA
-  agents/openai.yaml        metadane interfejsu Codex
-  scripts/                  tryb "z Bielikiem" (opcjonalny)
-    install-bielik.sh, bielik-advisor.py, bielik-review.py, validate_output.py
-```
-
-## Twarde zasady wyjścia
-
-- Zero myślnika długiego (U+2014) i półpauzy (U+2013), zawsze ASCII `-`.
-- Polskie znaki (pełne ogonki) w polskim tekście.
-- Nie zmieniaj języka, nie wymyślaj faktów, output nie puszy treści.
-
-Wyjątek: `references/patterns-en.md` i sekcja EN w `przyklady.md` cytują blader 1:1, więc w
-negatywnych przykładach "before" mają myślniki - to demonstrowany tell. Wynik skilla ich nie
-zawiera.
-
-## Evals
+Run the deterministic checks from the repository root:
 
 ```bash
 python3 evals/run_evals.py
 python3 evals/run_qa.py
 ```
 
-Pierwszy runner sprawdza oryginalne binarne asercje. Drugi dodaje kontrolę liczb, URL-i, języka,
-placeholderów, fragmentów chronionych i pustego wyniku oraz uruchamia dodatkowe przypadki regresyjne.
-To QA wyjścia, nie klasyfikator autorstwa.
+`run_evals.py` preserves the original binary assertions. `run_qa.py` adds regression cases and
+checks numbers, URLs, language, placeholders, protected fragments and empty output. These are
+output-quality gates, not a classifier of human versus AI authorship.
 
-## Użycie
+## What's in the box
 
-W Codex wywołaj [`$humanizer-pl:humanizer-pl`](https://github.com/mateuszkozlowski/codex-humanizer-pl/blob/main/plugins/humanizer-pl/skills/humanizer-pl/SKILL.md)
-albo użyj krótszego `$humanizer-pl`. Przykładowe polecenia: "zhumanizuj ten post", "wywal
-AI-slop z tego maila" albo "przepisz ten tekst naturalniej, zachowując fakty".
-Auto-wykrywa PL/EN. Tryb z Bielikiem: "zhumanizuj + sprawdź Bielikiem". Raport HTML ze zmianami
-(side-by-side + lista zmian): "zhumanizuj + raport HTML". Profil żargonu (czego nie tłumaczyć):
-"zapamiętaj mój żargon".
+```text
+humanizer-pl/
+  .agents/plugins/marketplace.json       Codex marketplace manifest
+  plugins/humanizer-pl/                  Codex plugin package
+    .codex-plugin/plugin.json
+    skills/humanizer-pl/                 materialized standalone skill
+  SKILL.md                               language router and process
+  references/
+    patterns-en.md                       English patterns from blader/humanizer
+    patterns-pl.md                       Polish pattern catalogue
+    polszczyzna-pl.md                    Polish naturalness layer
+    advanced-tropes.md                   extended selective review
+    przyklady.md                         original before/after example bank
+    raport-html.md                       optional side-by-side report format
+    qa-checklist.md                      manual review checklist
+  evals/                                  regression and QA runners
+  agents/openai.yaml                     Codex skill metadata
+  scripts/                               optional local Bielik tools
+```
 
-## Atrybucja
+## Privacy and boundaries
 
-Ten fork Codex bazuje na [pielas-activy/humanizer-pl](https://github.com/pielas-activy/humanizer-pl)
-(MIT). Oryginalny projekt zawiera polskie warstwy, integrację z Bielikiem i evals; angielskie
-wzorce zostały przejęte z [blader/humanizer](https://github.com/blader/humanizer), który bazuje
-na przewodniku [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing).
-Dodatkowy katalog tropów jest kuratorsko zainspirowany przez
-[tropes.md](https://tropes.fyi/tropes-md), a procedura kalibracji ślepej przez
-[AI or not quiz](https://en.wikipedia.org/wiki/Wikipedia:AI_or_not_quiz). Port Codex dodaje
-metadane `agents/openai.yaml`, zmienia ścieżki, warstwowe QA i dostosowuje zasady uruchamiania
-opcjonalnych narzędzi. Żadne z tych źródeł nie jest traktowane jako dowód autorstwa tekstu.
-Szczegóły są w `LICENSE`.
+The skill has no account, hosted service or telemetry of its own. The default mode only provides
+instructions to the model running the Codex task. The optional Bielik reviewer talks to Ollama on
+your machine by default (`localhost:11434`).
+
+Do not treat any humanizer as a guarantee that a text will evade an AI detector. Review the result,
+especially when facts, quotations, legal language or academic claims matter.
+
+## Attribution
+
+This Codex fork is based on [pielas-activy/humanizer-pl](https://github.com/pielas-activy/humanizer-pl)
+(MIT). The original project supplies the Polish layers, Bielik/Ollama integration and evals. Its
+English patterns come from [blader/humanizer](https://github.com/blader/humanizer), which is based
+on Wikipedia's [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing)
+guide.
+
+The additional trope catalogue is curatorially informed by
+[`tropes.md`](https://tropes.fyi/tropes-md), and the blind-calibration procedure by
+[AI or not quiz](https://en.wikipedia.org/wiki/Wikipedia:AI_or_not_quiz). This Codex port adds
+`agents/openai.yaml`, materialized plugin paths, layered QA and safer opt-in handling for local
+tools. None of these sources is treated as evidence of authorship. See [`LICENSE`](LICENSE) for
+the complete licensing and attribution terms.
+
+## License
+
+MIT. See [`LICENSE`](LICENSE).

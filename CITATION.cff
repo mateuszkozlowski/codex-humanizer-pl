@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use humanizer-pl, please cite the repository and preserve upstream attribution."
+type: software
+title: "humanizer-pl: Polish and English AI Text Humanizer Skill for Codex and GPT"
+version: 1.0.0
+authors:
+  - family-names: Kozłowski
+    given-names: Mateusz
+repository-code: "https://github.com/mateuszkozlowski/codex-humanizer-pl"
+url: "https://github.com/mateuszkozlowski/codex-humanizer-pl"
+license: MIT
+keywords:
+  - Codex
+  - GPT
+  - ChatGPT
+  - humanizer
+  - Polish language
+  - AI writing
+  - natural language processing

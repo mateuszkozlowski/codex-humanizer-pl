@@ -1,5 +1,8 @@
 # humanizer-pl - Polish AI Text Humanizer Skill for Codex and GPT
 
+[![Quality checks](https://github.com/mateuszkozlowski/codex-humanizer-pl/actions/workflows/quality.yml/badge.svg)](https://github.com/mateuszkozlowski/codex-humanizer-pl/actions/workflows/quality.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Dwujęzyczny (PL + EN) **AI text humanizer** dla Codex, GPT i ChatGPT. Ten skill usuwa oznaki
 pisania AI z polskich i angielskich tekstów, zachowując sens, fakty, źródła i głos autora.
 To fork [pielas-activy/humanizer-pl](https://github.com/pielas-activy/humanizer-pl), który z kolei
